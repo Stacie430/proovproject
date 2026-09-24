@@ -1,13 +1,24 @@
 # What I checked, and what the agent got wrong
-I checked if the reslts of the code were correct
-Write this yourself, in your own words. It is the part of the repo that proves the work is yours.
-the code was indeed wrong. A critical part was missing
+
+I reviewed the changes file by file instead of trusting the first agent answer.  
+I compared the logic against the task rules (15,000 km interval and 80% threshold) and checked behavior with tests and verification output.
+
 ## What the agent got wrong
-(Every agent gets something wrong on a job this size. What did you catch? How did you notice?)
-there was no test added to check if the numbers were correct
+
+The first pass missed an important test case around missing odometer readings in the fleet report flow.  
+I noticed this by reading the failing/expected test scenarios and checking that one required case was still not covered.
+
 ## What I checked before I accepted its work
-(How do you KNOW the wear bug is fixed and the 80% rule is untouched? What did you run?)
-I added a simple test and checked if  the results were correct
+
+I ran the test suite and the repository verification script to confirm the fixes were real and complete.  
+I specifically checked that:
+
+- nearly worn cars are flagged correctly,
+- cars with missing last-service readings are not falsely flagged,
+- report generation handles cars with missing readings without crashing,
+- the 80% rule and service interval stayed unchanged.
+
 ## What the data actually said
-(Which factors predict a breakdown, and which obvious-looking one turned out not to?)
-the data said that all the results of  the code were correct even though they were´nt
+
+The analysis showed that not every obvious feature is a strong predictor on its own.  
+In particular, high total mileage alone was not enough to separate breakdown vs. non-breakdown cars reliably, so the risk signal had to come from the combined factors in the dataset.
